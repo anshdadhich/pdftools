@@ -3,6 +3,7 @@
 import './globals.css';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { Mail } from "lucide-react"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState(false);
@@ -67,9 +68,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </div>
                 </div>
 
-                <button className="px-3 py-1.5 text-xs font-bold text-white bg-[#141414] dark:bg-white dark:text-black hover:opacity-90 rounded-md shadow-sm">
-                  Contact
-                </button>
+                <div className="flex flex-wrap justify-center">
+                 <a
+                   href="mailto:anshdadhichmm@gamil.com"
+                   className="group flex items-center px-3 py-2.5
+                            rounded-xl
+                            border-2 border-transparent
+                            hover:border-black 
+                            transition-all duration-200"
+                 >
+                   <Mail
+                     size={18}
+                     className="text-neutral-700 transition-colors"
+                   />
+                 </a>
+                 <a
+                   href="https://x.com"
+                   target="_blank"
+                   className="group flex items-center px-3 py-2.5
+                            rounded-xl
+                            border-2 border-transparent
+                            hover:border-black 
+                            transition-all duration-200"
+                 >
+                   <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     width="20"
+                     height="20"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     strokeWidth="2"
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                     className="text-neutral-700 group-hover:text-black transition-colors"
+                   >
+                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                     <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                     <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                   </svg>
+                 </a>
+               </div>       
               </div>
             </div>
           </div>
