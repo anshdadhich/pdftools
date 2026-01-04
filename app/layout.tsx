@@ -2,36 +2,37 @@
 
 import './globals.css';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
 import { Mail } from "lucide-react";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
-  // Only one source of truth
   const [darkMode, setDarkMode] = useState(false);
 
-  // On mount, initialize theme from localStorage or system preference
-  useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  useLayoutEffect(() => {
+  const theme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (theme === 'dark' || (!theme && prefersDark)) {
-      setDarkMode(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setDarkMode(false);
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
+  if (theme === 'dark' || (!theme && prefersDark)) {
+    setDarkMode(true);
+    document.documentElement.classList.add('dark');
+  } else {
+    setDarkMode(false);
+    document.documentElement.classList.remove('dark');
+  }
+}, []);
 
-  // Update HTML class and localStorage when toggling
+
   useEffect(() => {
     const root = document.documentElement;
     if (darkMode) {
       root.classList.add('dark');
       localStorage.setItem('theme', 'dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
       localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
               <div className="flex items-center gap-3 shrink-0">
                 {/* DARK MODE TOGGLE */}
+                {/* DARK MODE TOGGLE */}
                 <div className="toggle-wrapper">
                   <input
                     className="toggle-checkbox"
@@ -75,6 +77,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </div>
                 </div>
 
+                <div className="flex flex-wrap justify-center gap-2">
+                  <a
+                    href="mailto:anshdadhichmm@gamil.com"
+                    className="group flex items-center px-3 py-2.5
+                               rounded-xl
+                               border-2 border-transparent
+                               hover:border-black dark:hover:border-white 
+                               transition-colors duration-200"
+                  >
+                    <Mail
+                      size={18}
+                      className="text-neutral-700 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white transition-colors"
+                    />
+                  </a>
+
+                  <a
+                    href="https://x.com"
+                    target="_blank"
+                    className="group flex items-center px-3 py-2.5
+                               rounded-xl
+                               border-2 border-transparent
+                               hover:border-black 
+                               transition-colors duration-200"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-neutral-700 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white transition-colors"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                      <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                    </svg>
+                  </a>
+                </div>       
                 <div className="flex flex-wrap justify-center gap-2">
                   <a
                     href="mailto:anshdadhichmm@gamil.com"
@@ -146,7 +190,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+         <Analytics />
       </body>
     </html>
   );
 }
+
