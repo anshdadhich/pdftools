@@ -167,7 +167,7 @@ export default function Home() {
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
               <div className="relative z-10 max-w-2xl mx-auto space-y-6">
                 <h2 className="text-3xl font-bold text-white">
-                  Feel free to reach out for any suggestions and queries
+                  Feel free to reach out for any suggestions or queries
                 </h2>
               
                 <div className="flex flex-wrap justify-center gap-4">
