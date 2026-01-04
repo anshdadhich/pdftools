@@ -1,5 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import { Mail } from "lucide-react";
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const stagger = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const lineDraw: Variants = {
+  hidden: { pathLength: 0 },
+  visible: { pathLength: 1 },
+};
 
 const tools = [
   { name: "Merge PDF", link: "/tools/merge", icon: "call_merge", desc: "Combine PDFs in the order you want easily." },
@@ -17,49 +40,78 @@ const tools = [
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-[#f7f7f7] dark:bg-[#191919] text-[#141414] dark:text-white transition-colors duration-200">
-      
-      {/* Hero Background Pattern - Fading Bottom to Top */}
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={fadeUp}
+      className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-[#f7f7f7] dark:bg-[#191919] text-[#141414] dark:text-white transition-colors duration-200"
+    >
+      {/* Hero Background */}
       <div className="absolute inset-x-0 top-0 h-[600px] z-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(#333_1.5px,transparent_1.5px)] [background-size:24px_24px] [mask-image:linear-gradient(to_top,transparent,black)]"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#f7f7f7] dark:to-[#191919]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(#333_1.5px,transparent_1.5px)] [background-size:24px_24px] [mask-image:linear-gradient(to_top,transparent,black)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#f7f7f7] dark:to-[#191919]" />
       </div>
 
       <main className="relative z-10 flex-grow flex flex-col items-center w-full py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1280px] w-full flex flex-col gap-16">
-          
-          {/* Hero Section */}
-          <div className="text-center space-y-8 max-w-4xl mx-auto pb-2">
-            <div className="relative inline-block">
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+            className="text-center space-y-8 max-w-4xl mx-auto pb-2"
+          >
+            <motion.div variants={fadeUp} className="relative inline-block">
               <span className="text-green-600 dark:text-green-400 font-bold uppercase tracking-widest text-xs">
                 100% Private & Open Source
               </span>
-              {/* Handwritten Underline SVG */}
-              <svg className="absolute -bottom-2 left-0 w-full h-2 text-green-500/60" viewBox="0 0 100 10" preserveAspectRatio="none">
-                <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+
+              <svg
+                className="absolute -bottom-2 left-0 w-full h-2 text-green-500/60"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M0 5 Q 25 0, 50 5 T 100 5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  variants={lineDraw}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.4, 0, 0.2, 1], 
+                  }}
+                />
               </svg>
-            </div>
+            </motion.div>
 
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">
-              Your Privacy, Our Priority: <br className="hidden md:block"/> All PDF Processing Happens Locally.
-            </h2>
-            <p className="text-lg md:text-xl text-[#757575] dark:text-gray-400 font-medium max-w-2xl mx-auto">
-              We process your files directly in your browser. No data ever leaves your device. Experience the secure, open-source way to handle your documents.
-            </p>
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">
+              Your Privacy, Our Priority:
+              <br className="hidden md:block" /> All PDF Processing Happens Locally.
+            </motion.h2>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link 
-                href="/tools" 
+            <motion.p
+              variants={fadeUp}
+              className="text-lg md:text-xl text-[#757575] dark:text-gray-400 font-medium max-w-2xl mx-auto"
+            >
+              We process your files directly in your browser. No data ever leaves your device. Experience the secure,
+              open-source way to handle your documents.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Link
+                href="/tools"
                 className="group w-full sm:w-auto px-8 py-3 bg-[#141414] dark:bg-white text-white dark:text-black font-bold rounded-lg hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2"
               >
-                Explore Tools 
+                Explore Tools
                 <span className="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1">
                   arrow_forward
                 </span>
               </Link>
-              
-              <Link 
-                href="https://github.com" 
+
+              <Link
+                href="https://github.com"
                 target="_blank"
                 className="w-full sm:w-auto px-8 py-3 bg-white dark:bg-neutral-800 border border-[#e0e0e0] dark:border-neutral-700 font-bold rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-700 hover:border-black border-2 transition-colors flex items-center justify-center gap-2"
               >
@@ -68,90 +120,93 @@ export default function Home() {
                 </svg>
                 GitHub
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Tools Grid - Scaled down from p-6 to p-4 and text-sm */}
           <div className="space-y-6">
-            <h3 className="text-xl font-bold border-t-4 text-center border-blue p-3"></h3>
+            <h3 className="text-xl font-bold border-t-4 text-center border-blue p-3" />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.map((t, idx) => (
-                <Link
-                  href={t.link}
+                <motion.div
                   key={idx}
-                  className="group flex flex-col p-4 rounded-lg border border-transparent bg-white dark:bg-neutral-900 dark:border-neutral-800 hover:border-[#e0e0e0] dark:hover:border-neutral-700 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
+                  variants={fadeUp}
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="mb-3 flex justify-between items-start">
-                    <span className="material-symbols-outlined text-3xl text-black-600 dark:text-black-400">
-                      {t.icon}
-                    </span>
-                    <span className="material-symbols-outlined text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors text-lg">
-                      arrow_outward
-                    </span>
-                  </div>
-                  <h3 className="text-md font-bold group-hover:text-black-600 transition-colors">
-                    {t.name}
-                  </h3>
-                  <p className="mt-1 text-[13px] text-[#757575] dark:text-gray-400 line-clamp-2 leading-snug">
-                    {t.desc}
-                  </p>
-                </Link>
+                  <Link
+                    href={t.link}
+                    className="group flex flex-col p-4 rounded-lg border border-transparent bg-white dark:bg-neutral-900 dark:border-neutral-800 hover:border-[#e0e0e0] dark:hover:border-neutral-700 hover:shadow-lg transition-all duration-200"
+                  >
+                    <div className="mb-3 flex justify-between items-start">
+                      <span className="material-symbols-outlined text-3xl">
+                        {t.icon}
+                      </span>
+                      <span className="material-symbols-outlined text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors text-lg">
+                        arrow_outward
+                      </span>
+                    </div>
+
+                    <h3 className="text-md font-bold">{t.name}</h3>
+                    <p className="mt-1 text-[13px] text-[#757575] dark:text-gray-400 line-clamp-2 leading-snug">
+                      {t.desc}
+                    </p>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
 
-          {/* CTA Section */}
-          <div className="bg-[#141414] dark:bg-neutral-800 rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-              <h2 className="text-3xl font-bold text-white">Feel free to reach out for any suggestions and queries</h2>
-             <div className="flex flex-wrap justify-center gap-4">
-                <a
-                  href="mailto:anshdadhichmm@gamil.com"
-                  className="group flex items-center px-4 py-3
-                             rounded-xl
-                             border border-transparent
-                             hover:border-white hover:bg-transparent
-                             transition-all duration-200"
-                >
-                  <Mail
-                    size={18}
-                    className="text-white group-hover:text-white transition-colors"
-                  />
-                </a>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="bg-[#141414] dark:bg-neutral-800 rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden"
+          >
+            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+              <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+                <h2 className="text-3xl font-bold text-white">
+                  Feel free to reach out for any suggestions and queries
+                </h2>
               
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  className="group flex items-center px-4 py-3
-                             rounded-xl
-                             border border-transparent
-                             hover:border-white hover:bg-transparent
-                             transition-all duration-200"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-white group-hover:text-white transition-colors"
+                <div className="flex flex-wrap justify-center gap-4">
+                  <a
+                    href="mailto:anshdadhichmm@gamil.com"
+                    className="group flex items-center px-4 py-3 rounded-xl border border-transparent hover:border-white hover:bg-white transition-all duration-200"
                   >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-                  </svg>
-                </a>
-              </div>
+                    <Mail className="text-white group-hover:text-black" size={18} />
+                  </a>
+              
+                  <a
+                    href="https://x.com"
+                    target="_blank"
+                    className="group flex items-center px-4 py-3 rounded-xl border border-transparent hover:border-white hover:bg-white transition-all duration-200"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-white group-hover:text-black"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                      <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                    </svg>
+                  </a>
+                </div>
+
             </div>
-          </div>
+          </motion.div>
+
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 }
-

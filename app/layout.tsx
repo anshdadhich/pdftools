@@ -5,8 +5,28 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Mail } from "lucide-react"
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [darkMode, setDarkMode] = useState(false);
+export default function RootLayout({ children }: { children: React.ReactNode }){
+   
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return false;
+  
+    const theme = localStorage.getItem("theme");
+    if (theme) return theme === "dark";
+  
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+  
+  useEffect(() => {
+    const root = document.documentElement;
+  
+    if (darkMode) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -20,16 +40,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-              (function() {
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                }
-              })()
-            `
-        }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -74,12 +84,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                    className="group flex items-center px-3 py-2.5
                             rounded-xl
                             border-2 border-transparent
-                            hover:border-black 
-                            transition-all duration-200"
+                            hover:border-black dark:hover:border-white 
+                            transition-colors duration-200"
                  >
                    <Mail
                      size={18}
-                     className="text-neutral-700 transition-colors"
+                     className="text-neutral-700 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white border-white transition-colors"
                    />
                  </a>
                  <a
@@ -89,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             rounded-xl
                             border-2 border-transparent
                             hover:border-black 
-                            transition-all duration-200"
+                            transition-colors duration-200"
                  >
                    <svg
                      xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                      strokeWidth="2"
                      strokeLinecap="round"
                      strokeLinejoin="round"
-                     className="text-neutral-700 group-hover:text-black transition-colors"
+                     className="text-neutral-700 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white border-white transition-colors"
                    >
                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                      <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
