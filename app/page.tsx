@@ -91,6 +91,10 @@ export default function Home() {
               <br className="hidden md:block" /> All PDF Processing Happens Locally.
             </motion.h2>
 
+            <motion.h3 variants={fadeUp} className="text-3xl md:text-5xl font-black tracking-tight leading-[1.1]">
+              <br className="hidden md:block text-3xl md:text-5xl font-black tracking-tight leading-[1.1]" /> All PDF Processing Happens Locally.
+            </motion.h3>
+
             <motion.p
               variants={fadeUp}
               className="text-lg md:text-xl text-[#757575] dark:text-gray-400 font-medium max-w-2xl mx-auto"
