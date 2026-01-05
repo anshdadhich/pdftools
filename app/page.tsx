@@ -87,20 +87,14 @@ export default function Home() {
             </motion.div>
 
             <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">
-              Your Privacy, Our Priority:
-              <br className="hidden md:block" /> All PDF Processing Happens Locally.
+              Work with your files locally
             </motion.h2>
-
-            <motion.h3 variants={fadeUp} className="text-3xl md:text-5xl font-black tracking-tight leading-[1.1]">
-              <br className="hidden md:block text-3xl md:text-5xl font-black tracking-tight leading-[1.1]" /> All PDF Processing Happens Locally.
-            </motion.h3>
 
             <motion.p
               variants={fadeUp}
               className="text-lg md:text-xl text-[#757575] dark:text-gray-400 font-medium max-w-2xl mx-auto"
             >
-              We process your files directly in your browser. No data ever leaves your device. Experience the secure,
-              open-source way to handle your documents.
+              We process your files directly in your browser. No data ever leaves your device.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
