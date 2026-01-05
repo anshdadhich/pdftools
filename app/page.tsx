@@ -87,7 +87,8 @@ export default function Home() {
             </motion.div>
 
             <motion.h2 variants={fadeUp} className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">
-              Work with your files locally
+              Your Privacy, Our Priority:
+              <br className="hidden md:block" /> All PDF Processing Happens Locally.
             </motion.h2>
 
             <motion.p
