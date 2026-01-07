@@ -1,6 +1,6 @@
 # PDFToolkit
 
-![Project Preview](./public/preview-screenshot.png)
+![Project Preview](./public/preview_creenshot.jpg)
 
 PDFToolkit is a suite of high-performance PDF utilities that processes all files **on the client side**. Your files never leave your device, ensuring total privacy and near-instant processing speeds.
 
